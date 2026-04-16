@@ -38,6 +38,21 @@ class DataParser:
                 output_list.append(row)
         return output_list
     
+    def sort(self, data: list[list[str]]) -> list[list[str]]:
+        '''
+        Сортировка данных по убыванию по полю ctr.
+        '''
+        if len(data) == 0:
+            return data
+        
+        ctr_index, _ = self.__get_headers_indexies(data[0])
+        header = data[0]
+        rows = data[1:]
+        
+        sorted_rows = sorted(rows, key=lambda x: float(x[ctr_index]), reverse=True)
+        
+        return [header] + sorted_rows
+    
     # Private functions
 
     def __get_headers_indexies(self, headers: list[list[str]]):

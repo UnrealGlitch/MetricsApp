@@ -15,9 +15,10 @@ def main():
         loaded_data = data_parser.combine_lists(loaded_data1, loaded_data2)
 
     filtered_data = data_parser.filter(loaded_data)
+    sorted_data = data_parser.sort(filtered_data)
 
     data_printer = DataPrinter()
-    data_printer.print_data(filtered_data)
+    data_printer.print_data(sorted_data)
 
 if __name__ == "__main__":
     main()
