@@ -18,7 +18,7 @@ class DataPrinter:
     def __init__(self):
         pass
 
-    # Public
+    # Public functions
 
     def print_data(self, data):
         '''
