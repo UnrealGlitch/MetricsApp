@@ -8,9 +8,9 @@ class DataLoader:
     Загрузчик данных из файлов.
     '''
 
-    # Properties
+    # Private properties
 
-    TEST_DATA_PATH = "Data/stats{d}.csv" # Путь к тестовым данным.
+    __TEST_DATA_PATH = "Data/stats{d}.csv" # Путь к тестовым данным.
 
     # Life cycle
 
@@ -19,21 +19,19 @@ class DataLoader:
 
     # Public
 
-    def load_test_data(self):
+    def load_test_data(self) -> list[str]:
         '''
         Загрузка тестовых данных из файла csv в папке Data/
         '''
-        self.load_data(file_path=DataLoader.TEST_DATA_PATH.format(d=1))
-        print()
-        self.load_data(file_path=DataLoader.TEST_DATA_PATH.format(d=2))
+        return self.load_data(file_path=self.__TEST_DATA_PATH.format(d=1))
 
-    def load_data(self, file_path: str):
+    def load_data(self, file_path: str) -> list[str]:
         '''
         Загрузка данных из файла csv по указанному пути file_path.
         '''
+        raws = []
         with open(file=file_path, encoding="utf-8") as file:
             reader = csv.reader(file)
-            for row in reader:
-                print(row)
-    
-    # Private
+            for raw in reader:
+                raws.append(raw)
+        return raws
