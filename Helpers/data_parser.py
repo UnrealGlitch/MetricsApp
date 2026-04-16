@@ -36,7 +36,7 @@ class DataParser:
             row = data[i]
             if float(row[ctr_index]) > 15 and float(row[retention_rate_index]) < 40:
                 output_list.append(row)
-        return output_list
+        return [data[0]] + output_list
     
     def sort(self, data: list[list[str]]) -> list[list[str]]:
         '''
@@ -46,6 +46,7 @@ class DataParser:
             return data
         
         ctr_index, _ = self.__get_headers_indexies(data[0])
+
         header = data[0]
         rows = data[1:]
         
