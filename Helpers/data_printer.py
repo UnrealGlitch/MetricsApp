@@ -32,7 +32,7 @@ class DataPrinter:
         table.add_column("ctr", justify="right")
         table.add_column("retention_rate", justify="right")
 
-        for row in data:
-            table.add_row(*row)
+        for i in range(1, len(data)):
+            table.add_row(*data[i])
 
         console.print(table)

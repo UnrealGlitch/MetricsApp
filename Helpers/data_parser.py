@@ -31,11 +31,12 @@ class DataParser:
         Возвращает отфлитрованный список list[str].
         '''
         output_list = []
-        ctr_index, retention_rate_index = self.__get_headers_indexies(data[0])
+        title_index, ctr_index, retention_rate_index = self.__get_headers_indexies(data[0])
         for i in range(1, len(data)):
             row = data[i]
             if float(row[ctr_index]) > 15 and float(row[retention_rate_index]) < 40:
-                output_list.append(row)
+                new_row = [row[title_index], row[ctr_index], row[retention_rate_index]]
+                output_list.append(new_row)
         return [data[0]] + output_list
     
     def sort(self, data: list[list[str]]) -> list[list[str]]:
@@ -45,13 +46,13 @@ class DataParser:
         if len(data) == 0:
             return data
         
-        ctr_index, _ = self.__get_headers_indexies(data[0])
+        title_index, ctr_index, retention_rate_index = self.__get_headers_indexies(data[0])
 
         header = data[0]
         rows = data[1:]
         
         sorted_rows = sorted(rows, key=lambda x: float(x[ctr_index]), reverse=True)
-        
+
         return [header] + sorted_rows
     
     # Private functions
@@ -59,9 +60,12 @@ class DataParser:
     def __get_headers_indexies(self, headers: list[list[str]]):
         ctr_index = -1
         retention_rate_index = -1
+        title_index = -1
         for i in range(len(headers)):
             if headers[i] == "ctr":
                 ctr_index = i
             elif headers[i] == "retention_rate":
                 retention_rate_index = i
-        return (ctr_index, retention_rate_index)
+            elif headers[i] == "title":
+                title_index = i
+        return (title_index, ctr_index, retention_rate_index)
