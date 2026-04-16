@@ -19,12 +19,12 @@ class DataLoader:
 
     # Public functions
 
-    def load_test_data(self) -> list[list[str]]:
+    def load_test_data(self, file_number: int) -> list[list[str]]:
         '''
         Загрузка тестовых данных из файла csv в папке Data/
         Возвращает список данных list[list[str]].
         '''
-        return self.load_data(file_path=self.__TEST_DATA_PATH.format(d=1))
+        return self.load_data(file_path=self.__TEST_DATA_PATH.format(d=file_number))
 
     def load_data(self, file_path: str) -> list[list[str]]:
         '''

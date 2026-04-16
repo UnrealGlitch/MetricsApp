@@ -13,13 +13,16 @@ class DataParser:
 
     # Public functions
 
-    def combine_lists(*args: list[list[str]]) -> list[list[str]]:
+    def combine_lists(self, *args: list[list[str]]) -> list[list[str]]:
         '''
         Объединить неограниченное число списков формата list[str] в один.
         '''
         result = []
-        for lst in args:
-            result.extend(lst)
+        for i, lst in enumerate(args):
+            if i == 0:
+                result.extend(lst)
+            else:
+                result.extend(lst[1:])
         return result
 
     def filter(self, data: list[list[str]]) -> list[list[str]]:
