@@ -42,7 +42,7 @@ def main():
     filtered_data = data_parser.filter(loaded_data)
     sorted_data = data_parser.sort(filtered_data)
 
-    data_printer = DataPrinter()
+    data_printer = DataPrinter(report_name=report_name)
     data_printer.print_data(sorted_data)
 
 if __name__ == "__main__":

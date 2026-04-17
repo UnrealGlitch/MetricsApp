@@ -9,14 +9,10 @@ class DataPrinter:
     Класс, специализирующийся на выводе данных на экран.
     '''
 
-    # Private properties
-
-    __TABLE_NAME = "Clickbait Report" # Заголовок выводимой в терминал таблицы.
-
     # Life cycle
 
-    def __init__(self):
-        pass
+    def __init__(self, report_name: str):
+        self.report_name = report_name # Заголовок выводимой в терминал таблицы.
 
     # Public functions
 
@@ -26,7 +22,7 @@ class DataPrinter:
         '''
         console = Console()
 
-        table = Table(title=self.__TABLE_NAME)
+        table = Table(title=self.report_name)
 
         table.add_column("title", style="cyan", no_wrap=False)
         table.add_column("ctr", justify="right")
