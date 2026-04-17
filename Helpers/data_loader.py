@@ -18,7 +18,9 @@ class DataLoader:
     def load_data(self, file_path: str) -> list[list[str]]:
         '''
         Загрузка данных из файла csv по указанному пути file_path.
-        Возвращает список данных list[list[str]].
+
+        :param file_path: Путь к файлу.
+        :return: Список list[list[str]] с заголовком в начале.
         '''
         rows = []
         with open(file=file_path, encoding="utf-8") as file:

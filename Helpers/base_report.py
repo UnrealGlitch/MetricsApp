@@ -10,6 +10,8 @@ class BaseReport(ABC):
     и реализовывать методы filter, sort и print_data.
     '''
 
+    # Public functions
+
     @abstractmethod
     def filter(self, data: list[list[str]]) -> list[list[str]]:
         '''

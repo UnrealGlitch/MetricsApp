@@ -3,7 +3,8 @@ if __name__ == "__main__":
 
 class DataParser:
     '''
-    Обработчик данных.
+    Предварительный обработчик данных.
+    Обединяет данные из входных файлов в один массив данных.
     '''
 
     # Life cycle
@@ -15,7 +16,10 @@ class DataParser:
 
     def combine_lists(self, *args: list[list[str]]) -> list[list[str]]:
         '''
-        Объединить неограниченное число списков формата list[str] в один.
+        Объединение неограниченного числа списков формата list[list[str]] в один.
+
+        :param file_path: Путь к файлу.
+        :return: Список list[list[str]] с заголовком в начале.
         '''
         result = []
         for i, lst in enumerate(args):
@@ -24,48 +28,3 @@ class DataParser:
             else:
                 result.extend(lst[1:])
         return result
-
-    def filter(self, data: list[list[str]]) -> list[list[str]]:
-        '''
-        Фильтрация данных по критериям ctr > 15 и retention_rate < 40. 
-        Возвращает отфлитрованный список list[str].
-        '''
-        output_list = []
-        title_index, ctr_index, retention_rate_index = self.__get_headers_indexies(data[0])
-        for i in range(1, len(data)):
-            row = data[i]
-            if float(row[ctr_index]) > 15 and float(row[retention_rate_index]) < 40:
-                new_row = [row[title_index], row[ctr_index], row[retention_rate_index]]
-                output_list.append(new_row)
-        return [data[0]] + output_list
-    
-    def sort(self, data: list[list[str]]) -> list[list[str]]:
-        '''
-        Сортировка данных по убыванию по полю ctr.
-        '''
-        if len(data) == 0:
-            return data
-        
-        title_index, ctr_index, retention_rate_index = self.__get_headers_indexies(data[0])
-
-        header = data[0]
-        rows = data[1:]
-        
-        sorted_rows = sorted(rows, key=lambda x: float(x[ctr_index]), reverse=True)
-
-        return [header] + sorted_rows
-    
-    # Private functions
-
-    def __get_headers_indexies(self, headers: list[list[str]]):
-        ctr_index = -1
-        retention_rate_index = -1
-        title_index = -1
-        for i in range(len(headers)):
-            if headers[i] == "ctr":
-                ctr_index = i
-            elif headers[i] == "retention_rate":
-                retention_rate_index = i
-            elif headers[i] == "title":
-                title_index = i
-        return (title_index, ctr_index, retention_rate_index)

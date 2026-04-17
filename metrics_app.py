@@ -1,10 +1,19 @@
 import argparse
 
 from Helpers.data_loader import DataLoader
-from Helpers.data_printer import DataPrinter
 from Helpers.data_parser import DataParser
+from Helpers.base_report import BaseReport
+from Helpers.clickbait_report import ClickbaitReport
+
+REPORTS: dict[str, BaseReport] = {
+    "clickbait": ClickbaitReport(),
+}
 
 def __parse_args():
+    '''
+    Парсинг аргументов командной строки.
+    Возвращение объекта с атрибутами files (список путей к CSV) и report (тип отчёта).
+    '''
     parser = argparse.ArgumentParser(
         description="Анализ метрик из CSV файлов."
     )
@@ -28,23 +37,23 @@ def __parse_args():
     return parser.parse_args()
 
 def main():
+    '''
+    Точка входа в приложение.
+    Загруprf данных из CSV файлов, фильтрует, сортирует и вывод отчёта в терминал.
+    '''
     args = __parse_args()
-    files = args.files
     report_name = args.report
 
     data_loader = DataLoader()
     data_parser = DataParser()
+    report = REPORTS[report_name]
 
-    loaded_files = []
-    for file in files:
-        loaded_files.append(data_loader.load_data(file_path=file))
+    loaded_files = [data_loader.load_data(file_path=file) for file in args.files]
     loaded_data = data_parser.combine_lists(*loaded_files)
 
-    filtered_data = data_parser.filter(loaded_data)
-    sorted_data = data_parser.sort(filtered_data)
-
-    data_printer = DataPrinter(report_name=report_name)
-    data_printer.print_data(sorted_data)
+    filtered_data = report.filter(loaded_data)
+    sorted_data = report.sort(filtered_data)
+    report.print_data(sorted_data)
 
 if __name__ == "__main__":
     main()
