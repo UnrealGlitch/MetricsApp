@@ -48,7 +48,14 @@ def main():
     data_parser = DataParser()
     report = REPORTS[report_name]
 
-    loaded_files = [data_loader.load_data(file_path=file) for file in args.files]
+    loaded_files = []
+    for file in args.files:
+        try:
+            loaded_files.append(data_loader.load_data(file_path=file))
+        except FileNotFoundError:
+            print(f"Ошибка: файл не найден — {file}")
+            return
+
     loaded_data = data_parser.combine_lists(*loaded_files)
 
     filtered_data = report.filter(loaded_data)
