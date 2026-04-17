@@ -18,6 +18,10 @@ hh.ru - https://ulyanovsk.hh.ru/resume/f3eab237ff105fc7030039ed1f6f4861393876
 
 *python3 metrics_app.py --files Data/stats1.csv Data/stats2.csv Data/stats3.csv*
 
+Вариант с указанием типа отчета:
+
+*python3 metrics_app.py --files Data/stats1.csv Data/stats2.csv --report clickbait*
+
 Вызвать помощь:
 
 *python3 metrics_app.py --help*
