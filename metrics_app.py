@@ -20,8 +20,9 @@ def __parse_args():
     
     parser.add_argument(
         "--report",
-        default="Clickbait",
-        help="Название отчёта (например: clickbait)"
+        default="clickbait",
+        choices=["clickbait"],
+        help="Тип отчёта (например: clickbait)"
     )
     
     return parser.parse_args()
